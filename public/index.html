@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KinaBooks - PNG Bookkeeping</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container" id="login-screen">
+    <h1>Login to KinaBooks</h1>
+    <p>Soft Launch Edition</p>
+    <input type="text" id="email" placeholder="Email (admin)" value="admin" aria-label="Email">
+    <input type="password" id="password" placeholder="Password (admin)" value="admin" aria-label="Password">
+    <button class="btn" onclick="login()">Login</button>
+</div>
+
+<div class="container hidden" id="dashboard-screen">
+    <div class="nav">
+        <strong>KinaBooks</strong>
+        <a onclick="showSection('dashboard-content')">Dashboard</a>
+        <a onclick="showSection('invoices-screen')">Invoices</a>
+        <a onclick="showSection('cashbook-screen')">Cash Book</a>
+        <a onclick="showSection('reports-screen')">Reports</a>
+        <a onclick="logout()">Logout</a>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard-content">
+        <h2>Business Overview</h2>
+        <div class="card-row">
+            <div class="card"><h3>Income</h3><p id="total-income">K0.00</p></div>
+            <div class="card"><h3>Expenses</h3><p id="total-expenses">K0.00</p></div>
+            <div class="card"><h3>Profit</h3><p id="net-profit">K0.00</p></div>
+        </div>
+        <button class="btn" onclick="showSection('invoices-screen')">Create New Invoice</button>
+    </div>
+
+    <!-- Invoices List -->
+    <div id="invoices-screen" class="hidden">
+        <h2>Invoices</h2>
+        <button class="btn" onclick="showSection('new-invoice-form')">+ New Invoice</button>
+        <table id="invoice-table">
+            <thead><tr><th>ID</th><th>Client</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody><!-- Items here --></tbody>
+        </table>
+    </div>
+
+    <!-- Cash Book List -->
+    <div id="cashbook-screen" class="hidden">
+        <h2>Cash Book</h2>
+        <button class="btn" onclick="showSection('new-cash-form')">+ Record Cash</button>
+        <table id="cashbook-table">
+            <thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr></thead>
+            <tbody><!-- Items here --></tbody>
+        </table>
+    </div>
+
+    <!-- Reports Screen -->
+    <div id="reports-screen" class="hidden">
+        <h2>Profit & Loss Report</h2>
+        <div class="card-row">
+            <div class="card"><h3>Total Revenue</h3><p id="rpt-income" class="text-success">--</p></div>
+            <div class="card"><h3>Total Expenses</h3><p id="rpt-expense" class="text-danger">--</p></div>
+            <div class="card"><h3>Net Profit</h3><p id="rpt-profit">--</p></div>
+        </div>
+        <h3>Expense Breakdown</h3>
+        <table id="reports-table">
+            <thead><tr><th>Category</th><th>Amount</th></tr></thead>
+            <tbody></tbody>
+        </table>
+        <button class="btn" onclick="loadReports()">Refresh Report</button>
+    </div>
+
+    <!-- New Invoice Form -->
+    <div id="new-invoice-form" class="hidden">
+        <h2>New Invoice</h2>
+        <label for="inv-client">Client Name</label>
+        <input type="text" id="inv-client">
+        <label for="inv-date">Date</label>
+        <input type="date" id="inv-date">
+        <label for="inv-amount">Amount (PGK)</label>
+        <input type="number" id="inv-amount">
+        <button class="btn" onclick="saveInvoice()">Save Invoice</button> 
+        <button class="btn btn-secondary" onclick="showSection('invoices-screen')">Cancel</button>
+    </div>
+
+    <!-- New Cash Form -->
+    <div id="new-cash-form" class="hidden">
+        <h2>Record Cash Transaction</h2>
+        <label for="cash-type">Type</label>
+        <select id="cash-type">
+            <option value="IN">Cash In (Revenue)</option>
+            <option value="OUT">Cash Out (Expense)</option>
+        </select>
+        <label for="cash-date">Date</label>
+        <input type="date" id="cash-date">
+        <label for="cash-desc">Description</label>
+        <input type="text" id="cash-desc">
+        <label for="cash-amount">Amount (PGK)</label>
+        <input type="number" id="cash-amount">
+        <button class="btn" onclick="saveCashTransaction()">Save Transaction</button>
+        <button class="btn btn-secondary" onclick="showSection('cashbook-screen')">Cancel</button>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
